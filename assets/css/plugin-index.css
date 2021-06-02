@@ -1,25 +1,28 @@
 /* Plugin index */
 
-.plugin-index h1 {
-  text-transform: capitalize;
+#plugin-index {
+  column-width: 15em;
 }
 
-.plugin-index ul {
-  display: flex;
-  flex-wrap: wrap;
+#plugin-index img {
+  vertical-align: middle;
 }
-
-.plugin-index li {
-  flex-grow: 0;
-  width: 33%;
-  white-space: nowrap;
+#plugin-index li {
+  padding-bottom: 1em;
+  align-items: center;
+  line-height: 0.9em;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: flex;
-  padding-bottom: 0.5em;
-  align-items: center;
+  white-space: nowrap;
 }
 
-.plugin-index a {
+#plugin-index li div {
+  display: inline-block;
+  vertical-align: middle;
   padding-left: 0.3em;
+}
+
+#plugin-index .categories {
+  font-size: 0.7em;
+  white-space: normal;
 }

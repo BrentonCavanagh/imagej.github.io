@@ -19,7 +19,6 @@ section: Extend
 {%- endfor -%}
 {%- assign all-categories = category-string | split: "|" | sort | uniq -%}
 
-{:nomarkdown}
 <script>
 function hasClass(item, cls) {
   for (i in item.classList) {
@@ -70,37 +69,26 @@ function toggleAllCategories(checked) {
   </div>
 </details>
 
-<div id="plugin-index">
-{%- for category in all-categories -%}
-  {%- if category == "" -%} {%- continue -%} {%- endif %}
-  <div id="{{category}}-section">
-    <h1>{{category}}</h1>
-    {%- assign section = category | strip %}
-    <ul>
-    {%- for p in site.pages -%}
-      {%- assign tokens = p.url | split: "/" -%}
-      {%- if tokens[1] != 'plugins' and tokens[1] != 'formats' -%} {%- continue -%} {%- endif -%}
-      {%- if tokens[3] and tokens[3] != 'index' -%} {%- continue -%} {%- endif -%}
-      {%- assign classes = "" -%}
-      {%- assign present = false -%}
-      {%- for cat in p.categories -%}
-        {%- assign c = cat | strip -%}
-        {%- unless forloop.first -%} {%- assign classes = classes | append: ' ' -%} {%- endunless -%}
-        {%- assign classes = classes | append: 'category-' | append: c -%}
-        {%- if c == section -%} {%- assign present = true -%} {%- endif -%}
-      {%- endfor -%}
-      {%- if present %}
-      <li class="{{classes}}">
-        <img src="{{p.icon}}" height=25>
-        <a href="{{p.url}}">{{p.title}}</a>
-      </li>
-      {%- endif -%}
-    {%- endfor %}
-    </ul>
-  </div>
-{% endfor %}
-</div>
-{:/}
+<ul id="plugin-index">
+{%- for p in site.pages -%}
+  {%- assign tokens = p.url | split: "/" -%}
+  {%- if tokens[1] != 'plugins' and tokens[1] != 'formats' -%} {%- continue -%} {%- endif -%}
+  {%- if tokens[3] and tokens[3] != 'index' -%} {%- continue -%} {%- endif -%}
+  {%- assign classes = "" -%}
+  {%- for cat in p.categories -%}
+    {%- assign c = cat | strip -%}
+    {%- unless forloop.first -%} {%- assign classes = classes | append: ' ' -%} {%- endunless -%}
+    {%- assign classes = classes | append: 'category-' | append: c -%}
+  {%- endfor %}
+  <li class="{{classes}}">
+    <img src="{{p.icon}}" height=25>
+    <div>
+      <a href="{{p.url}}">{{p.title}}</a><br>
+      <span class="categories">{{ p.categories | join: ', ' }}</span>
+    </div>
+  </li>
+{%- endfor %}
+</ul>
 
 {%- comment -%}
 # vi:syntax=liquid
